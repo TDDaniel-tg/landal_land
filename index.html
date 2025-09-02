@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Landal - франшиза по установке и обслуживанию ворот, рольставен, дверей от DoorHan. Прибыль от 250000 рублей в месяц.">
+    <title>Landal - Франшиза по установке ворот и рольставен</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Fixed Header -->
+    <header class="header" role="banner">
+        <div class="header-container">
+            <p class="header-text">Landal - это франшиза по установке и обслуживанию ворот, рольставен, дверей от DoorHan</p>
+        </div>
+    </header>
+
+    <!-- Main Hero Section -->
+    <main class="hero-section" role="main">
+        <div class="hero-container">
+            <!-- Left Column - Image -->
+            <div class="hero-image-section">
+                <img src="main_screen.png" alt="Профессиональные работники устанавливают ворота" loading="eager">
+            </div>
+
+            <!-- Right Column - Content and Form -->
+            <div class="hero-content-section">
+                <div class="content-wrapper">
+                    <h1 class="hero-title">
+                        Откройте бизнес по франшизе, которая приводит клиентов!
+                    </h1>
+                    
+                    <div class="metrics-container">
+                        <div class="metric-item">
+                            <div class="metric-circle">
+                                <span class="metric-label">Прибыль от</span>
+                                <span class="metric-value">250 000</span>
+                                <span class="metric-unit"> в месяц</span>
+                            </div>
+                        </div>
+                        
+                        <div class="metric-item">
+                            <div class="metric-circle">
+                                <span class="metric-label">Срок окупаемости</span>
+                                <span class="metric-value">16</span>
+                                <span class="metric-unit">месяцев</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="form-section">
+                        <h2 class="form-title">Оставьте заявку</h2>
+                        
+                        <form class="contact-form" action="#" method="POST" novalidate>
+                            <div class="form-group">
+                                <label for="name" class="visually-hidden">Имя</label>
+                                <input 
+                                    type="text" 
+                                    id="name" 
+                                    name="name" 
+                                    placeholder="Имя" 
+                                    required 
+                                    aria-required="true"
+                                    class="form-input"
+                                >
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone" class="visually-hidden">Телефон</label>
+                                <input 
+                                    type="tel" 
+                                    id="phone" 
+                                    name="phone" 
+                                    placeholder="Телефон" 
+                                    required 
+                                    aria-required="true"
+                                    class="form-input"
+                                >
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email" class="visually-hidden">Email</label>
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    name="email" 
+                                    placeholder="Email" 
+                                    required 
+                                    aria-required="true"
+                                    class="form-input"
+                                >
+                            </div>
+                            
+                            <button type="submit" class="submit-button" aria-describedby="privacy-notice">
+                                Отправить
+                            </button>
+                            
+                            <p class="privacy-notice" id="privacy-notice">
+                                Нажимая на кнопку «Получить консультацию», вы соглашаетесь с 
+                                <a href="/privacy-policy" class="privacy-link">политикой конфиденциальности</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Down Indicator -->
+        <div class="scroll-indicator" role="presentation">
+            <button class="scroll-button" aria-label="Прокрутить вниз">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+    </main>
+</body>
+</html>
