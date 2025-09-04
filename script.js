@@ -60,22 +60,43 @@ function initScrollAnimations() {
     }, observerOptions);
 
     // Observe elements for fade-in animations
-    document.querySelectorAll('.growth-card, .advantage-card, .stat-card, .offer-block, .founder-card').forEach(el => {
+    document.querySelectorAll('.growth-card, .advantage-card, .stat-card, .founder-card').forEach(el => {
         observer.observe(el);
     });
+    
+    // Only observe offer-block on desktop
+    if (window.innerWidth > 768) {
+        document.querySelectorAll('.offer-block').forEach(el => {
+            observer.observe(el);
+        });
+    }
 
     // Observe counter elements
     document.querySelectorAll('.growth-number, .big-number, .stat-number').forEach(el => {
         observer.observe(el);
     });
 
-    // Add CSS for animations
+    // Add CSS for animations (excluding offer-block on mobile)
     const style = document.createElement('style');
     style.textContent = `
-        .growth-card, .advantage-card, .stat-card, .offer-block, .founder-card {
+        .growth-card, .advantage-card, .stat-card, .founder-card {
             opacity: 0;
             transform: translateY(30px);
             transition: all 0.6s ease;
+        }
+        
+        .offer-block {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .offer-block {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
         }
         
         .animate-in {
@@ -408,38 +429,8 @@ function initCounterAnimations() {
 
 // Mobile-specific features
 function initMobileFeatures() {
-    // Touch swipe for offer blocks (if needed)
-    const offerBlocks = document.querySelectorAll('.offer-blocks');
-    
-    offerBlocks.forEach(container => {
-        if (window.innerWidth <= 768) {
-            let startX = 0;
-            let currentX = 0;
-            let isDragging = false;
-            
-            container.addEventListener('touchstart', (e) => {
-                startX = e.touches[0].clientX;
-                isDragging = true;
-            });
-            
-            container.addEventListener('touchmove', (e) => {
-                if (!isDragging) return;
-                currentX = e.touches[0].clientX;
-                e.preventDefault();
-            });
-            
-            container.addEventListener('touchend', () => {
-                if (!isDragging) return;
-                isDragging = false;
-                
-                const diff = startX - currentX;
-                if (Math.abs(diff) > 50) {
-                    // Add swipe navigation logic here if needed
-                    console.log('Swipe detected:', diff > 0 ? 'left' : 'right');
-                }
-            });
-        }
-    });
+    // Removed problematic touch swipe handlers that were blocking scroll
+    // Touch events are now handled through CSS touch-action properties
     
     // Optimize animations for mobile
     if (window.innerWidth <= 768) {
