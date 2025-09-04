@@ -47,6 +47,26 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.header-logo {
+    height: 60px;
+    width: auto;
+    object-fit: contain;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px;
+    transition: all 0.3s ease;
+}
+
+.header-logo:hover {
+    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .header-text {
@@ -442,6 +462,16 @@ body {
 }
 
 @media (max-width: 768px) {
+    .header-container {
+        gap: 12px;
+    }
+    
+    .header-logo {
+        height: 45px;
+        border-radius: 18px;
+        padding: 6px;
+    }
+    
     .header-text {
         font-size: 12px;
         line-height: 1.4;
@@ -508,6 +538,14 @@ body {
 @media (max-width: 480px) {
     .header-container {
         padding: 8px 12px;
+        gap: 8px;
+        flex-direction: column;
+    }
+    
+    .header-logo {
+        height: 35px;
+        border-radius: 14px;
+        padding: 4px;
     }
     
     .hero-content-section {
@@ -618,33 +656,47 @@ body {
 
 .founder-quote {
     position: relative;
-    background: #F3F4F6;
-    border-radius: 20px;
-    padding: 60px 40px;
+    background: transparent;
+    border-radius: 0;
+    padding: 40px 0;
     margin: 40px 0;
-    display: flex;
-    align-items: center;
-    gap: 40px;
+    transition: all 0.3s ease;
+}
+
+.founder-quote:hover blockquote::before {
+    transform: scale(1.05);
+    opacity: 1;
 }
 
 .founder-quote blockquote {
-    flex: 1;
     margin: 0;
     font-size: clamp(16px, 2vw, 20px);
     line-height: 1.6;
     color: #1F2937;
     font-style: italic;
     position: relative;
+    text-align: left;
+    padding-left: 60px;
+    z-index: 2;
 }
 
 .founder-quote blockquote::before {
-    content: '"';
-    font-size: 80px;
-    color: #4ADE80;
+    content: '';
+    background-image: url('../images/kovycky.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 50px;
+    height: 50px;
     position: absolute;
-    top: -20px;
-    left: -30px;
-    font-family: Georgia, serif;
+    top: 0;
+    left: 0;
+    opacity: 1;
+    filter: none;
+    border-radius: 0;
+    box-shadow: none;
+    transition: all 0.3s ease;
+    z-index: 1;
 }
 
 .founder-image img {
@@ -680,10 +732,15 @@ body {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     text-align: center;
     transition: transform 0.3s ease;
+    touch-action: pan-y;
+    user-select: none;
 }
 
-.founder-card:hover {
-    transform: translateY(-5px);
+/* Hover эффекты только для устройств с курсором */
+@media (hover: hover) and (pointer: fine) {
+    .founder-card:hover {
+        transform: translateY(-5px);
+    }
 }
 
 .founder-card img {
@@ -759,12 +816,17 @@ body {
     padding: 32px;
     text-align: center;
     transition: transform 0.3s ease;
+    touch-action: pan-y;
+    user-select: none;
 }
 
-.growth-card:hover {
-    transform: translateY(-5px);
-    background: white;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+/* Hover эффекты только для устройств с курсором */
+@media (hover: hover) and (pointer: fine) {
+    .growth-card:hover {
+        transform: translateY(-5px);
+        background: white;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
 }
 
 .growth-number {
@@ -1007,6 +1069,7 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 40px;
+    align-items: start;
 }
 
 .advantage-card {
@@ -1014,12 +1077,20 @@ body {
     border-radius: 16px;
     padding: 32px;
     transition: transform 0.3s ease;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    touch-action: pan-y;
+    user-select: none;
 }
 
-.advantage-card:hover {
-    transform: translateY(-5px);
-    background: white;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+/* Hover эффекты только для устройств с курсором */
+@media (hover: hover) and (pointer: fine) {
+    .advantage-card:hover {
+        transform: translateY(-5px);
+        background: white;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
 }
 
 .advantage-card h3 {
@@ -1034,13 +1105,15 @@ body {
     line-height: 1.6;
     color: #6B7280;
     margin-bottom: 24px;
+    flex-grow: 1;
 }
 
 .advantage-card img {
     width: 100%;
-    height: 200px;
-    object-fit: cover;
+    height: auto;
+    object-fit: contain;
     border-radius: 12px;
+    max-height: none;
 }
 
 /* Section 6: Company Scale */
@@ -1307,14 +1380,22 @@ body {
 .partner-logos {
     display: flex;
     justify-content: center;
-    gap: 40px;
-    margin-top: 40px;
+    gap: 60px;
+    margin-top: 60px;
     flex-wrap: wrap;
+    align-items: center;
 }
 
 .partner-logos img {
-    height: 60px;
+    height: 150px;
+    width: auto;
     object-fit: contain;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.partner-logos img:hover {
+    transform: translateY(-5px) scale(1.05);
 }
 
 /* USP 3 Specific Styles */
@@ -1391,13 +1472,18 @@ body {
     padding: 32px;
     border: 2px solid transparent;
     transition: all 0.3s ease;
+    touch-action: pan-y;
+    user-select: none;
 }
 
-.offer-block:hover {
-    background: white;
-    border-color: #4ADE80;
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+/* Hover эффекты только для устройств с курсором */
+@media (hover: hover) and (pointer: fine) {
+    .offer-block:hover {
+        background: white;
+        border-color: #4ADE80;
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
 }
 
 .offer-block h4 {
@@ -1696,6 +1782,7 @@ body {
     width: 100%;
     height: 400px;
     object-fit: cover;
+    object-position: center center;
     border-radius: 16px;
 }
 
@@ -1767,6 +1854,16 @@ body {
         gap: 40px;
     }
     
+    .team-photo img {
+        height: 300px;
+        object-fit: contain;
+        object-position: center center;
+    }
+    
+    .logo-overlay img {
+        height: 40px;
+    }
+    
     .footer-content {
         grid-template-columns: 1fr;
         text-align: center;
@@ -1788,9 +1885,17 @@ body {
     }
     
     .founder-quote {
-        flex-direction: column;
-        text-align: center;
-        padding: 40px 20px;
+        padding: 20px 15px;
+    }
+    
+    .founder-quote blockquote {
+        padding-left: 45px;
+        font-size: 14px;
+    }
+    
+    .founder-quote blockquote::before {
+        width: 40px;
+        height: 40px;
     }
     
     .founders-grid {
@@ -1830,6 +1935,16 @@ body {
         gap: 20px;
     }
     
+    .partner-logos {
+        gap: 30px;
+        margin-top: 40px;
+    }
+    
+    .partner-logos img {
+        height: 100px;
+        border-radius: 15px;
+    }
+    
     /* Кружки всегда рядом в мобильной версии */
     .metrics-container {
         display: flex;
@@ -1865,6 +1980,15 @@ body {
     .qr-code img {
         width: 120px;
         height: 120px;
+    }
+    
+    .team-photo img {
+        height: 250px;
+        object-fit: contain;
+    }
+    
+    .logo-overlay img {
+        height: 30px;
     }
     
     /* Кружки ВСЕГДА рядом на очень маленьких экранах */
