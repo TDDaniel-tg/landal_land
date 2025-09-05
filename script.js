@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initScrollAnimations();
     initFormValidation();
     initModalFunctionality();
+    initFranchiseForm();
     initCounterAnimations();
     initMobileFeatures();
 });
@@ -137,6 +138,12 @@ function animateCounter(element) {
     element.dataset.animated = 'true';
     
     const text = element.textContent;
+    
+    // Skip animation for text ranges like "3-4 года"
+    if (text.includes('-') && text.match(/\d+-\d+/)) {
+        return;
+    }
+    
     const number = parseFloat(text.replace(/[^\d.]/g, ''));
     const suffix = text.replace(/[\d.]/g, '');
     
@@ -503,3 +510,49 @@ window.addEventListener('resize', debounce(() => {
     const isMobile = window.innerWidth <= 768;
     document.body.classList.toggle('mobile', isMobile);
 }, 250));
+
+// Franchise form functionality
+function initFranchiseForm() {
+    const franchiseForm = document.getElementById('franchiseForm');
+    
+    if (franchiseForm) {
+        franchiseForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const inputs = this.querySelectorAll('input');
+            const name = inputs[0].value.trim();
+            const phone = inputs[1].value.trim();
+            const email = inputs[2].value.trim();
+            
+            // Simple validation
+            if (!name || !phone || !email) {
+                alert('Пожалуйста, заполните все поля');
+                return;
+            }
+            
+            // Show loading state
+            const button = this.querySelector('.form-submit-btn');
+            const originalText = button.textContent;
+            button.textContent = 'Отправляем...';
+            button.disabled = true;
+            
+            // Simulate form submission
+            setTimeout(() => {
+                // Clear form
+                inputs.forEach(input => input.value = '');
+                
+                button.textContent = 'Заявка отправлена!';
+                button.style.background = '#5ebe2d';
+                button.style.borderColor = '#5ebe2d';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.disabled = false;
+                    button.style.background = '';
+                    button.style.borderColor = '';
+                }, 3000);
+            }, 1000);
+        });
+    }
+}
