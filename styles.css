@@ -8,9 +8,16 @@
     box-sizing: border-box;
 }
 
+/* Natural Image Rendering */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
 html {
     scroll-behavior: smooth;
 }
+
 
 body {
     font-family: 'Fira Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
@@ -743,7 +750,6 @@ body {
     top: 0;
     left: 0;
     opacity: 1;
-    filter: none;
     border-radius: 0;
     box-shadow: none;
     transition: all 0.3s ease;
