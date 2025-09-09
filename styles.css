@@ -1345,7 +1345,7 @@ body {
 
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 16px;
 }
 
@@ -2393,8 +2393,8 @@ body {
     }
     
     .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
     }
     
     .terms-layout {
@@ -2474,7 +2474,16 @@ body {
     .growth-cards,
     .offer-blocks,
     .stats-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+    }
+    
+    .stat-number {
+        font-size: clamp(20px, 4vw, 28px);
+    }
+    
+    .stat-card p {
+        font-size: 11px;
     }
     
     .growth-number {
