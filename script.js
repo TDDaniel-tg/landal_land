@@ -556,3 +556,91 @@ function initFranchiseForm() {
         });
     }
 }
+
+// PDF Download functionality
+function initPdfDownload() {
+    const pdfLinks = document.querySelectorAll('a[href*="franchise-presentation.pdf"]');
+    
+    pdfLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            const originalText = this.innerHTML;
+            this.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 12l2 2 4-4"></path></svg> Скачивание...';
+            this.style.pointerEvents = 'none';
+            
+            // Simulate download (you can replace this with actual PDF download logic)
+            setTimeout(() => {
+                // Create a temporary link to trigger download
+                const tempLink = document.createElement('a');
+                tempLink.href = this.href;
+                tempLink.download = 'franchise-presentation.pdf';
+                tempLink.style.display = 'none';
+                document.body.appendChild(tempLink);
+                tempLink.click();
+                document.body.removeChild(tempLink);
+                
+                // Restore original state
+                this.innerHTML = originalText;
+                this.style.pointerEvents = 'auto';
+                
+                // Show success message
+                showNotification('Презентация успешно скачана!', 'success');
+            }, 1000);
+        });
+    });
+}
+
+// Notification system
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.textContent = message;
+    
+    // Add styles
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? '#5ebe2d' : '#333'};
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 10000;
+        font-size: 14px;
+        font-weight: 500;
+        opacity: 0;
+        transform: translateX(100%);
+        transition: all 0.3s ease;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Animate in
+    setTimeout(() => {
+        notification.style.opacity = '1';
+        notification.style.transform = 'translateX(0)';
+    }, 100);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }, 3000);
+}
+
+// Initialize all features when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    initScrollIndicator();
+    initMobileFeatures();
+    initCounters();
+    initFranchiseForm();
+    initPdfDownload();
+});
