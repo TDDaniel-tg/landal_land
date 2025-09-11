@@ -180,6 +180,8 @@ body {
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     position: relative;
     overflow: hidden;
+    padding-right: 0;
+    margin-right: 0;
 }
 
 /* Защита от масштабирования через центрирование */
@@ -210,6 +212,10 @@ body {
     }
     
     .hero-container {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
         display: flex !important;
         flex-direction: column !important;
         position: relative !important;
@@ -248,6 +254,39 @@ body {
         height: clamp(150px, 25vh, 300px) !important;
         min-height: clamp(150px, 25vh, 300px) !important;
     }
+    
+    .hero-image-section img {
+        transform: scale(1.2) !important;
+    }
+}
+
+/* Адаптивное масштабирование изображения */
+@media screen and (min-width: 1024px) {
+    .hero-image-section img {
+        width: clamp(950px, 55vw, 900px);
+        height: clamp(1000px, 70vh, 1300px);
+        max-width: none;
+        max-height: none;
+        object-fit: cover;
+        object-position: center right;
+        position: absolute !important;
+        right: 0 !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        z-index: 2 !important;
+        pointer-events: auto !important;
+    }
+    
+    .hero-image-section {
+        width: 100vw !important;
+        height: 100%;
+        right: calc(-1 * (100vw - 100%)) !important;
+        position: absolute !important;
+        overflow: visible;
+        pointer-events: none !important;
+    }
 }
 
 .hero-section::before {
@@ -262,8 +301,8 @@ body {
 }
 
 .hero-container {
-    max-width: 1400px;
-    margin: 0 auto;
+    width: 100%;
+    margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -277,26 +316,35 @@ body {
     z-index: 1;
     position: absolute;
     top: 0;
-    right: 0;
+    right: calc(-1 * (100vw - 100%));
     background: transparent;
     display: flex;
     align-items: center;
     justify-content: flex-end;
     overflow: visible;
     padding: 0;
-    width: 60%;
+    width: 100vw;
     height: 100%;
     flex-shrink: 0;
+    pointer-events: none;
 }
 
 .hero-image-section img {
-    width: auto;
-    height: 100%;
+    width: clamp(1550px, 55vw, 2800px);
+    height: clamp(1800px, 70vh, 3000px);
     max-width: none;
     max-height: none;
-    object-fit: contain;
+    object-fit: cover;
+    object-position: center right;
     display: block;
     z-index: 2;
+    transform-origin: center right;
+    transition: all 0.2s ease-out;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: auto;
 }
 
 /* Блок-ограничитель высоты - НЕ ДАЕТ КОНТЕНТУ ПОДНИМАТЬСЯ ВЫШЕ */
@@ -331,6 +379,7 @@ body {
     max-width: 500px;
     margin: 0 auto;
     z-index: 3;
+    margin-left: 10%;
 }
 
 .hero-title {
@@ -400,10 +449,11 @@ body {
 }
 
 .form-title {
+    margin-top: 15px;
     font-size: 26px;
     font-weight: 700;
     color: #000000;
-    margin-bottom: 0px;
+    margin-bottom: 15px;
     text-align: left;
     letter-spacing: -0.025em;
 }
@@ -1286,7 +1336,7 @@ body {
     line-height: 1.6;
     color: #D1D5DB;
     text-align: center;
-    margin-bottom: 0px;
+    margin-bottom: 15px;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;

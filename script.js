@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initFranchiseForm();
     initCounterAnimations();
     initMobileFeatures();
+    initImageScaling();
 });
 
 // Smooth scroll between sections
@@ -636,6 +637,101 @@ function showNotification(message, type = 'info') {
     }, 3000);
 }
 
+// Image scaling based on zoom level
+function initImageScaling() {
+    const heroImage = document.querySelector('.hero-image-section img');
+    if (!heroImage) return;
+    
+    let baseWidth = window.innerWidth;
+    let currentScale = 1;
+    
+    // Устанавливаем базовые размеры через CSS переменные (твои новые размеры)
+    heroImage.style.setProperty('--base-width', '950px');
+    heroImage.style.setProperty('--base-height', '1000px');
+    heroImage.style.setProperty('--max-width', '900px');
+    heroImage.style.setProperty('--max-height', '1300px');
+    
+    function updateImageScale() {
+        // Простой метод: сравниваем текущую ширину с базовой
+        const currentWidth = window.innerWidth;
+        const zoomFactor = baseWidth / currentWidth;
+        
+        // Рассчитываем масштаб изображения исходя из твоих размеров
+        let scale = 1;
+        let widthMultiplier = 1;
+        let heightMultiplier = 1;
+        
+        if (zoomFactor <= 0.4) { // очень большой зум (250%+)
+            scale = 2.2;
+            widthMultiplier = 1.4;
+            heightMultiplier = 1.6;
+        } else if (zoomFactor <= 0.5) { // зум 200%
+            scale = 1.8;
+            widthMultiplier = 1.3;
+            heightMultiplier = 1.4;
+        } else if (zoomFactor <= 0.67) { // зум 150%
+            scale = 1.5;
+            widthMultiplier = 1.2;
+            heightMultiplier = 1.3;
+        } else if (zoomFactor <= 0.8) { // зум 125%
+            scale = 1.25;
+            widthMultiplier = 1.1;
+            heightMultiplier = 1.15;
+        } else if (zoomFactor <= 0.9) { // зум 110%
+            scale = 1.1;
+            widthMultiplier = 1.05;
+            heightMultiplier = 1.05;
+        }
+        
+        // Применяем только если изменился
+        if (Math.abs(scale - currentScale) > 0.05) {
+            currentScale = scale;
+            
+            // Рассчитываем новые размеры на основе твоих базовых
+            const newWidth = Math.min(950 * widthMultiplier, 900 * heightMultiplier);
+            const newHeight = Math.min(1000 * heightMultiplier, 1300 * heightMultiplier);
+            
+            // Применяем через CSS переменные и transform
+            heroImage.style.setProperty('--scale-width', `${newWidth}px`);
+            heroImage.style.setProperty('--scale-height', `${newHeight}px`);
+            heroImage.style.transform = `translateY(-50%) scale(${scale})`;
+            heroImage.style.transformOrigin = 'center right';
+            heroImage.style.position = 'absolute';
+            heroImage.style.right = '0';
+            heroImage.style.top = '50%';
+            heroImage.style.zIndex = '2';
+            
+            console.log(`Zoom: ${Math.round(1/zoomFactor * 100)}%, Scale: ${scale}, Size: ${Math.round(newWidth)}×${Math.round(newHeight)}`);
+        }
+    }
+    
+    // ResizeObserver для более точного отслеживания
+    if (window.ResizeObserver) {
+        const resizeObserver = new ResizeObserver(entries => {
+            updateImageScale();
+        });
+        resizeObserver.observe(document.body);
+    }
+    
+    // Дополнительные слушатели
+    window.addEventListener('resize', updateImageScale);
+    window.addEventListener('load', () => {
+        baseWidth = window.innerWidth;
+        updateImageScale();
+    });
+    
+    // Отслеживание через визуальный viewport (для мобильных браузеров)
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', updateImageScale);
+    }
+    
+    // Инициализация
+    setTimeout(() => {
+        baseWidth = window.innerWidth;
+        updateImageScale();
+    }, 100);
+}
+
 // Initialize all features when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     initScrollIndicator();
@@ -643,4 +739,5 @@ document.addEventListener('DOMContentLoaded', function() {
     initCounters();
     initFranchiseForm();
     initPdfDownload();
+    initImageScaling();
 });
