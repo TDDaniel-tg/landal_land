@@ -741,3 +741,60 @@ document.addEventListener('DOMContentLoaded', function() {
     initPdfDownload();
     initImageScaling();
 });
+
+// Show scroll indicator only while hero section is visible
+function initScrollIndicator() {
+    const indicator = document.querySelector('.scroll-indicator');
+    const hero = document.querySelector('.hero-section');
+    if (!indicator || !hero) return;
+
+    // Start hidden until we know we're in view
+    indicator.style.opacity = '0';
+    indicator.style.pointerEvents = 'none';
+
+    const show = () => {
+        indicator.style.display = 'block';
+        // next frame for transition safety
+        requestAnimationFrame(() => {
+            indicator.style.opacity = '1';
+            indicator.style.pointerEvents = 'auto';
+        });
+    };
+
+    const hide = () => {
+        indicator.style.opacity = '0';
+        indicator.style.pointerEvents = 'none';
+        // optional: fully remove from layout after fade
+        setTimeout(() => {
+            if (parseFloat(getComputedStyle(indicator).opacity) === 0) {
+                indicator.style.display = 'none';
+            }
+        }, 200);
+    };
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting && entry.intersectionRatio > 0.15) {
+                    show();
+                } else {
+                    hide();
+                }
+            });
+        },
+        {
+            threshold: [0, 0.15, 0.5, 1],
+            root: null,
+            rootMargin: '0px 0px 0px 0px'
+        }
+    );
+
+    observer.observe(hero);
+
+    // Also react on resize to keep state correct
+    window.addEventListener('resize', () => {
+        // Force re-check by unobserve/observe
+        observer.unobserve(hero);
+        observer.observe(hero);
+    });
+}

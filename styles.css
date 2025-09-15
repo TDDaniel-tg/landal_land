@@ -1765,6 +1765,14 @@ body {
     stroke-width: 2.5;
 }
 
+/* Ensure raster icons fit nicely inside the green circle */
+.stat-icon img {
+    width: clamp(36px, 6vw, 48px);
+    height: clamp(36px, 6vw, 48px);
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+}
+
 .stat-number {
     font-size: clamp(22px, 3.8vw, 40px);
     font-weight: 900;
@@ -2272,7 +2280,7 @@ body {
 }
 
 .terms-subtitle {
-    font-size: 20px;
+    font-size: 35px;
     font-weight: 700;
     color: white;
     margin: 0 0 24px 0;
@@ -2344,6 +2352,7 @@ body {
 
 .terms-form input:focus {
     outline: none;
+    
     border-color: #5ebe2d;
     box-shadow: 0 0 0 1px #5ebe2d;
 }
@@ -2361,7 +2370,7 @@ body {
 }
 
 .form-submit-btn:hover {
-    background: #1A202C;
+    background: #5ebe2d;
     border-color: #5ebe2d;
 }
 
@@ -2439,7 +2448,7 @@ body {
     font-weight: 700;
     color: #000000;
     text-align: center;
-    margin-bottom: 0px;
+    margin-bottom: 15px;
 }
 
 .offer-content {
@@ -2668,6 +2677,11 @@ body {
     transition: all 0.3s ease;
     border: 1px solid rgba(156, 163, 175, 0.2);
     margin-top: 16px;
+    /* Ensure both footer buttons have the same width on large screens */
+    width: 300px;
+    justify-content: center;
+    text-align: center;
+    flex-shrink: 0;
 }
 
 .footer-site-link:hover {
@@ -2764,6 +2778,11 @@ body {
     .footer-contacts p {
         text-align: center;
     }
+
+    /* On tablet and below, allow buttons to size naturally */
+    .footer-site-link {
+        width: auto;
+    }
 }
 
 @media (max-width: 768px) {
@@ -2787,7 +2806,7 @@ body {
     }
     
     .terms-subtitle {
-        font-size: 16px;
+        font-size: 18px;
         margin-bottom: 0px;
     }
     
@@ -3082,6 +3101,11 @@ body {
     .footer-logo {
         margin: 0 auto;
         display: block;
+    }
+
+    /* On mobile, buttons should be auto width (or full width if needed by parent) */
+    .footer-site-link {
+        width: auto;
     }
     
     .offer-block {
