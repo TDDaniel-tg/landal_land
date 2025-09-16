@@ -965,6 +965,35 @@ body {
     }
 }
 
+/* Orientation lock overlay for mobile landscape */
+@media (max-width: 1024px) and (orientation: landscape) {
+    .orientation-lock {
+        position: fixed;
+        inset: 0;
+        background: #000000;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 99999;
+    }
+    .orientation-lock__content {
+        text-align: center;
+        font-size: 16px;
+        line-height: 1.5;
+        padding: 20px;
+    }
+    body > *:not(.orientation-lock) {
+        pointer-events: none !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
+    }
+}
+
+@media (orientation: portrait) {
+    .orientation-lock { display: none; }
+}
+
 /* High Contrast Mode Support */
 @media (prefers-contrast: high) {
     .hero-title,

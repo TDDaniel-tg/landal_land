@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initCounterAnimations();
     initMobileFeatures();
     initImageScaling();
+    initOrientationLock();
 });
 
 // Smooth scroll between sections
@@ -740,7 +741,35 @@ document.addEventListener('DOMContentLoaded', function() {
     initFranchiseForm();
     initPdfDownload();
     initImageScaling();
+    initOrientationLock();
 });
+
+// Try to lock orientation to portrait on supported browsers and show overlay fallback
+function initOrientationLock() {
+    const lockOverlay = document.querySelector('.orientation-lock');
+
+    // Attempt Screen Orientation API
+    if (screen.orientation && screen.orientation.lock) {
+        try {
+            screen.orientation.lock('portrait').catch(() => {});
+        } catch (e) {}
+    }
+
+    const update = () => {
+        const isLandscape = window.matchMedia('(orientation: landscape)').matches;
+        const isSmall = window.innerWidth <= 1024; // phones/tablets
+        if (lockOverlay) {
+            lockOverlay.style.display = isLandscape && isSmall ? 'flex' : 'none';
+        }
+        document.body.style.overflow = isLandscape && isSmall ? 'hidden' : '';
+    };
+
+    update();
+    window.addEventListener('resize', update);
+    if (window.screen && window.screen.orientation) {
+        window.screen.orientation.addEventListener?.('change', update);
+    }
+}
 
 // Show scroll indicator only while hero section is visible
 function initScrollIndicator() {
