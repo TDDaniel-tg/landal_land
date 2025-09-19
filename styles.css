@@ -179,6 +179,7 @@ body {
     padding-top: 30px;
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     position: relative;
+    
     overflow: hidden;
     padding-right: 0;
     margin-right: 0;
@@ -992,6 +993,58 @@ body {
 
 @media (orientation: portrait) {
     .orientation-lock { display: none; }
+}
+
+/* Bitrix24 Forms Integration Styles */
+.bitrix-form-container {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Override Bitrix form styles to match site design */
+.bitrix-form-container iframe,
+.bitrix-form-container [data-b24-crm-button-cont] {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* Dark section form styling */
+.dark-section .bitrix-form-container {
+    background: transparent;
+}
+
+/* Inline form styling for business plan section */
+.bitrix-inline-form {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Terms section form styling */
+.terms-form-container .bitrix-form-container {
+    width: 100%;
+    height: fit-content;
+}
+
+/* Final contact form styling */
+.final-contact .bitrix-form-container {
+    max-width: 400px;
+    width: 100%;
+}
+
+/* Responsive adjustments for forms */
+@media (max-width: 768px) {
+    .bitrix-form-container {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .bitrix-inline-form {
+        max-width: 100%;
+    }
+    
+    .final-contact .bitrix-form-container {
+        max-width: 100%;
+    }
 }
 
 /* High Contrast Mode Support */
